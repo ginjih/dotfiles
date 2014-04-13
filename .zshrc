@@ -6,7 +6,7 @@ export LANG=ja_JP.UTF-8  # 文字コードをUTF-8に設定
 export KCODE=u           # KCODEにUTF-8を設定
 export AUTOFEATURE=true  # autotestでfeatureを動かす
 
-bindkey -v              # キーバインドをviモードに設定
+bindkey -e              # キーバインドをviモードに設定
 
 setopt auto_pushd        # cd時にディレクトリスタックにpushdする
 #setopt correct           # コマンドのスペルを訂正する
@@ -22,6 +22,16 @@ setopt list_packed             # 補完候補をできるだけ詰めて表示�
 setopt list_types              # 補完候補にファイルの種類も表示する
 bindkey "^[[Z" reverse-menu-complete  # Shift-Tabで補完候補を逆順する("\e[Z"でも動作する)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 補完時に大文字小文字を区別しない
+# 補完関数の表示を強化する
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+zstyle ':completion:*:descriptions' format '%F{YELLOW}completing %B%d%b'$DEFAULT
+zstyle ':completion:*:options' description 'yes'
+zstyle ':completion:*:descriptions' format '%F{yellow}Completing %B%d%b%f'$DEFAULT
+zstyle ':completion:*' list-separator '-->'
+zstyle ':completion:*:manuals' separate-sections true
 
 ### History ###
 HISTFILE=~/.zsh_history   # ヒストリを保存するファイル
@@ -104,7 +114,3 @@ precmd() {
 #時刻を表示させる
 alias history='history -E'
 
-# cdコマンド実行後、lsを実行する
-function cd() {
-				  builtin cd $@ && ls;
-}
