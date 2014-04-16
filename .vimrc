@@ -2,10 +2,8 @@ syntax on
 set nocompatible
 set noinsertmode
 " tab
-set shiftwidth=4
 set smarttab
 set nowrap
-set backspace=1
 set smartindent
 set shortmess=t
 set showmatch
